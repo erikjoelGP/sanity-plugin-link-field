@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-link-field",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "A custom Link field for Sanity Studio",
   "keywords": [
     "sanity",
@@ -70,11 +70,11 @@
     "fix:lint": "eslint src/ --fix --quiet"
   },
   "dependencies": {
-    "@sanity/icons": "^2.11.8",
+    "@sanity/icons": "^3.7.4",
     "@sanity/incompatible-plugin": "^1.0.4",
-    "@sanity/ui": "^2.1.3",
-    "lucide-react": "^0.368.0",
-    "styled-components": "^6.1.11"
+    "@sanity/ui": "^3.1.11",
+    "lucide-react": "^0.562.0",
+    "styled-components": "^6.3.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.2",
@@ -94,14 +94,14 @@
     "lefthook": "^1.6.10",
     "prettier": "^3.2.5",
     "prettier-plugin-packagejson": "^2.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sanity": "^3.37.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "sanity": "^5.2.0",
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
-    "sanity": "^3 || ^4"
+    "sanity": "^3 || ^4 || ^5"
   },
   "engines": {
     "node": ">=18"

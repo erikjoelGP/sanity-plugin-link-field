@@ -187,6 +187,7 @@ export type LinkSchemaType = Omit<ObjectSchemaType, 'options'> & {
   options?: LinkFieldOptions
 }
 
-export type LinkInputProps = ObjectInputProps<LinkValue, LinkSchemaType> & {
+export type LinkInputProps = Omit<ObjectInputProps<LinkValue, LinkSchemaType>, 'compareValue'> & {
   customLinkTypes: CustomLinkType[]
+  compareValue?: LinkValue | Record<string, unknown>
 }
