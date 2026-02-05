@@ -76,7 +76,7 @@ export const LinkTypeInput = memo(function LinkTypeInput({
               onClick={() => {
                 // Debug: track link type changes
                 // eslint-disable-next-line no-console
-                console.log('[link-field] type change', {
+                console.log('[link-field-plugin] type change', {
                   from: value ?? null,
                   to: type.value,
                 })

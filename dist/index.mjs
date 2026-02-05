@@ -29,16 +29,28 @@ const requiredLinkField = (field) => {
 `, CustomLinkInput = memo(function(props) {
   const workspace = useWorkspace(), document = useFormValue([]), linkValue = useFormValue(props.path.slice(0, -1)), [options, setOptions] = useState(null), customLinkType = props.customLinkTypes.find((type) => type.value === linkValue.type);
   return useEffect(() => {
-    customLinkType && (Array.isArray(customLinkType?.options) ? setOptions(customLinkType.options) : customLinkType.options(document, props.path, workspace.currentUser).then((options2) => setOptions(options2)));
+    customLinkType && (Array.isArray(customLinkType?.options) ? (console.log("[link-field-plugin] custom options (static)", {
+      type: customLinkType.value,
+      count: customLinkType.options.length
+    }), setOptions(customLinkType.options)) : customLinkType.options(document, props.path, workspace.currentUser).then((options2) => {
+      console.log("[link-field-plugin] custom options (async)", {
+        type: customLinkType.value,
+        count: options2.length
+      }), setOptions(options2);
+    }));
   }, [customLinkType, props.path, workspace.currentUser]), options ? /* @__PURE__ */ jsx(
     Select,
     {
+      value: props.value ?? "",
       onChange: (e) => {
-        props.onChange(set(e.currentTarget.value || ""));
+        console.log("[link-field-plugin] custom value change", {
+          type: customLinkType?.value ?? null,
+          value: e.currentTarget.value || ""
+        }), props.onChange(set(e.currentTarget.value || ""));
       },
       children: /* @__PURE__ */ jsxs(Fragment, { children: [
-        /* @__PURE__ */ jsx("option", { value: "", selected: props.value === "", disabled: !0, hidden: !0 }),
-        options.map((option) => /* @__PURE__ */ jsx("option", { value: option.value, selected: props.value === option.value, children: option.title }, option.value))
+        /* @__PURE__ */ jsx("option", { value: "", disabled: !0, children: "Select value" }),
+        options.map((option) => /* @__PURE__ */ jsx("option", { value: option.value, children: option.title }, option.value))
       ] })
     }
   ) : /* @__PURE__ */ jsx(OptionsSpinner, {});
@@ -188,7 +200,10 @@ const requiredLinkField = (field) => {
           text: type.title,
           icon: type.icon,
           onClick: () => {
-            onChange(set(type.value));
+            console.log("[link-field-plugin] type change", {
+              from: value ?? null,
+              to: type.value
+            }), onChange(set(type.value));
           }
         },
         type.value
@@ -196,6 +211,7 @@ const requiredLinkField = (field) => {
     }
   );
 }), linkField = definePlugin((opts) => {
+  console.log("[link-field-plugin] loaded");
   const {
     linkableSchemaTypes = ["page"],
     weakReferences = !1,

@@ -42,6 +42,8 @@ import type {LinkFieldPluginOptions, LinkValue} from './types'
  * ```
  */
 export const linkField = definePlugin<LinkFieldPluginOptions | void>((opts) => {
+  // eslint-disable-next-line no-console
+  console.log('[link-field-plugin] loaded')
   const {
     linkableSchemaTypes = ['page'],
     weakReferences = false,

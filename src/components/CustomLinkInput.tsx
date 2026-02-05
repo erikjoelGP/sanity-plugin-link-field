@@ -29,7 +29,7 @@ export const CustomLinkInput = memo(function CustomLinkInput(
     if (customLinkType) {
       if (Array.isArray(customLinkType?.options)) {
         // eslint-disable-next-line no-console
-        console.log('[link-field] custom options (static)', {
+        console.log('[link-field-plugin] custom options (static)', {
           type: customLinkType.value,
           count: customLinkType.options.length,
         })
@@ -37,7 +37,7 @@ export const CustomLinkInput = memo(function CustomLinkInput(
       } else {
         customLinkType.options(document, props.path, workspace.currentUser).then((options) => {
           // eslint-disable-next-line no-console
-          console.log('[link-field] custom options (async)', {
+          console.log('[link-field-plugin] custom options (async)', {
             type: customLinkType.value,
             count: options.length,
           })
@@ -53,7 +53,7 @@ export const CustomLinkInput = memo(function CustomLinkInput(
       value={props.value ?? ''}
       onChange={(e) => {
         // eslint-disable-next-line no-console
-        console.log('[link-field] custom value change', {
+        console.log('[link-field-plugin] custom value change', {
           type: customLinkType?.value ?? null,
           value: e.currentTarget.value || '',
         })
