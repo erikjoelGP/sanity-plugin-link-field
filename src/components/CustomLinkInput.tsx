@@ -28,11 +28,21 @@ export const CustomLinkInput = memo(function CustomLinkInput(
   useEffect(() => {
     if (customLinkType) {
       if (Array.isArray(customLinkType?.options)) {
+        // eslint-disable-next-line no-console
+        console.log('[link-field] custom options (static)', {
+          type: customLinkType.value,
+          count: customLinkType.options.length,
+        })
         setOptions(customLinkType.options)
       } else {
-        customLinkType
-          .options(document, props.path, workspace.currentUser)
-          .then((options) => setOptions(options))
+        customLinkType.options(document, props.path, workspace.currentUser).then((options) => {
+          // eslint-disable-next-line no-console
+          console.log('[link-field] custom options (async)', {
+            type: customLinkType.value,
+            count: options.length,
+          })
+          setOptions(options)
+        })
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,11 +52,18 @@ export const CustomLinkInput = memo(function CustomLinkInput(
     <Select
       value={props.value ?? ''}
       onChange={(e) => {
+        // eslint-disable-next-line no-console
+        console.log('[link-field] custom value change', {
+          type: customLinkType?.value ?? null,
+          value: e.currentTarget.value || '',
+        })
         props.onChange(set(e.currentTarget.value || ''))
       }}
     >
       <>
-        <option value="" disabled hidden />
+        <option value="" disabled>
+          Select value
+        </option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.title}

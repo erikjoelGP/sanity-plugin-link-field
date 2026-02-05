@@ -1,11 +1,11 @@
 import {ChevronDownIcon} from '@sanity/icons'
 import {Button, Menu, MenuButton, MenuItem} from '@sanity/ui'
 import {AtSignIcon, GlobeIcon, LinkIcon, PhoneIcon} from 'lucide-react'
+import {memo} from 'react'
 import {set, type StringInputProps} from 'sanity'
 import styled from 'styled-components'
 
 import {CustomLinkType, LinkFieldPluginOptions, LinkType} from '../types'
-import {memo} from 'react'
 
 const defaultLinkTypes: LinkType[] = [
   {title: 'Internal', value: 'internal', icon: LinkIcon},
@@ -74,6 +74,12 @@ export const LinkTypeInput = memo(function LinkTypeInput({
               text={type.title}
               icon={type.icon}
               onClick={() => {
+                // Debug: track link type changes
+                // eslint-disable-next-line no-console
+                console.log('[link-field] type change', {
+                  from: value ?? null,
+                  to: type.value,
+                })
                 onChange(set(type.value))
               }}
             />
